@@ -3,18 +3,25 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"math/rand"
 	"os"
+	"time"
 )
 
 const finalMessage = "and press ENTER when ready."
 
 func main() {
-	var firstNumber = 2
-	var secondNumber = 5
-	var subtraction = 7
-	var answer int
-	var reader = bufio.NewReader(os.Stdin)
+	rand.Seed(time.Now().UnixNano())
+	var firstNumber = rand.Intn(8) + 2
+	var secondNumber = rand.Intn(8) + 2
+	var subtraction = rand.Intn(8) + 2
+	var answer = firstNumber*secondNumber - subtraction
 
+	playGame(firstNumber, secondNumber, subtraction, answer)
+}
+
+func playGame(firstNumber, secondNumber, subtraction, answer int) {
+	var reader = bufio.NewReader(os.Stdin)
 	fmt.Println("GUESS THE NUMBER GAME")
 	fmt.Println("_____________________")
 	fmt.Println("")
@@ -28,6 +35,5 @@ func main() {
 	reader.ReadString('\n')
 	fmt.Println("Now subtract the result by", subtraction, finalMessage)
 	reader.ReadString('\n')
-	answer = firstNumber*secondNumber - subtraction
 	fmt.Println("The answer is", answer)
 }
